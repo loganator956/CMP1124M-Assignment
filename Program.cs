@@ -7,12 +7,20 @@ namespace CMP1124M_Assignment
         private const int NumberOfShares = 3;
         public static void Main(string[] args)
         {
+            Process256();
+        }
+
+        static void Process256()
+        {
+            // Create and initialize jagged array storing the shares
             int[][] shareValues256 = new int[NumberOfShares][];
             for (int i = 0; i < shareValues256.Length; i++)
             {
                 // initializing the jagged array
                 shareValues256[i] = new int[256];
             }
+
+            // read share files into array
             for (int i = 0; i < NumberOfShares; i++)
             {
                 string fileName = $"Share_{i + 1}_256.txt";
@@ -28,6 +36,7 @@ namespace CMP1124M_Assignment
                 }
             }
 
+            // select which arrays to sort, search and display
             Console.WriteLine("What arrays do you want to sort & search");
             Console.WriteLine("1 - Share_1_256.txt\n2 - Share_2_256.txt\n3 - Share_3_256.txt");
             MessagePrompt arraySelectionPrompt = new MessagePrompt("Select which array(s) you want to process");
@@ -36,22 +45,31 @@ namespace CMP1124M_Assignment
             arraySelectionPrompt.AddOption("Share_3_256.txt");
             // now have the responses (the indexes of which arrays to use)
             int[] responses = arraySelectionPrompt.ShowPromptMultiSelect();
-
-            // TODO: Sort into ascending and descending order 
+            int[][] responseArrays = new int[responses.Length][];
+            int index = 0;
             foreach (int i in responses)
             {
-                Console.WriteLine($"\n---\narray index: {i}");
-                // TODO: Prompt to select which sorting algorithm to use
-                int[] ascendingOrder = Sorter.BubbleSort(shareValues256[i]);
-                int[] descendingOrder = Sorter.ReverseOrder(ascendingOrder);
+                Console.WriteLine($"\n---\n256 array index: {i}");
 
-                Console.WriteLine("Displaying every 10th item in the row");
-                Console.WriteLine("Index\tAsc.\tDesc.");
+                ProcessArray(shareValues256[i]);
 
-                for (int j = 0; j < ascendingOrder.Length; j += 10)
-                {
-                    Console.WriteLine($"{j}\t{ascendingOrder[j]}\t{descendingOrder[j]}");
-                }
+                index++;
+            }
+        }
+
+        static void ProcessArray(int[] array)
+        {
+            // Sort/reverse arrays
+            // TODO: Prompt to select which sorting algorithm to use
+            int[] ascendingOrder = Sorter.BubbleSort(array);
+            int[] descendingOrder = Sorter.ReverseOrder(ascendingOrder);
+
+            // display arrays
+            Console.WriteLine("Displaying every 10th item in the row");
+            Console.WriteLine("Index\tAsc.\tDesc.");
+            for (int i = 0; i < ascendingOrder.Length; i += 10)
+            {
+                Console.WriteLine($"{i}\t{ascendingOrder[i]}\t{descendingOrder[i]}");
             }
         }
     }

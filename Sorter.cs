@@ -26,5 +26,15 @@ namespace CMP1124M_Assignment
             }
             return currentOrder;
         }
+
+        public static int[] ReverseOrder(int[] input)
+        {
+            int[] reversedOrder = new int[input.Length];
+            for (int i = input.Length - 1; i >= 0; i--)
+            {
+                reversedOrder[i] = input[(input.Length - 1) - i];
+            }
+            return reversedOrder;
+        }
     }
 }

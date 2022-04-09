@@ -28,15 +28,31 @@ namespace CMP1124M_Assignment
                 }
             }
 
-            // TODO: Select Arrays
-            // TODO: Allow for selecting multiple arrays
-            MessagePrompt message = new MessagePrompt($"Select which array to use (1-3)");
-            int selectedArrayIndex = message.ShowMessageNumericalResponse(1,3) - 1;
+            Console.WriteLine("What arrays do you want to sort & search");
+            Console.WriteLine("1 - Share_1_256.txt\n2 - Share_2_256.txt\n3 - Share_3_256.txt");
+            MessagePrompt arraySelectionPrompt = new MessagePrompt("Select which array(s) you want to process");
+            arraySelectionPrompt.AddOption("Share_1_256.txt");
+            arraySelectionPrompt.AddOption("Share_2_256.txt");
+            arraySelectionPrompt.AddOption("Share_3_256.txt");
+            // now have the responses (the indexes of which arrays to use)
+            int[] responses = arraySelectionPrompt.ShowPromptMultiSelect();
 
             // TODO: Sort into ascending and descending order 
-            
+            foreach (int i in responses)
+            {
+                Console.WriteLine($"\n---\narray index: {i}");
+                // TODO: Prompt to select which sorting algorithm to use
+                int[] ascendingOrder = Sorter.BubbleSort(shareValues256[i]);
+                int[] descendingOrder = Sorter.ReverseOrder(ascendingOrder);
 
-            // TODO: Display every 10th value of the SELECTED arrays
+                Console.WriteLine("Displaying every 10th item in the row");
+                Console.WriteLine("Index\tAsc.\tDesc.");
+
+                for (int j = 0; j < ascendingOrder.Length; j += 10)
+                {
+                    Console.WriteLine($"{j}\t{ascendingOrder[j]}\t{descendingOrder[j]}");
+                }
+            }
         }
     }
 }

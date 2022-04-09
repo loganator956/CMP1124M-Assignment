@@ -1,64 +1,77 @@
 using System;
+using System.Collections.Generic;
 
 namespace CMP1124M_Assignment
 {
     public class MessagePrompt
     {
         public string Message { get; private set; }
+
+        private List<string> _options = new List<string>();
+
         public MessagePrompt(string message)
         {
             Message = message;
         }
 
-        public void ShowMessage()
+        public void ShowMessage(bool showOptions)
         {
             Console.WriteLine(Message);
+            if (showOptions)
+            {
+                for (int i = 0; i < _options.Count; i++)
+                {
+                    Console.WriteLine($"{i} - {_options[i]}");
+                }
+            }
         }
 
-        public int ShowMessageNumericalResponse(int min, int max)
+        public void AddOption(string option)
         {
-            Console.WriteLine(Message);
+            _options.Add(option);
+        }
+
+        public int[] ShowPromptMultiSelect()
+        {
+            ShowMessage(true);
             while (true)
             {
                 try
                 {
-                    int val = _processNumericalResponse();
-                    if (val >= min && val <= max)
+                    string response = Console.ReadLine() ?? "0";
+                    List<int> responses = new List<int>();
+                    
+                    foreach (char c in response)
                     {
-                        return val;
+                        int cint = 0;
+                        if (!int.TryParse(c.ToString(), out cint))
+                        {
+                            throw new ResponseInputException("Unrecognised character");
+                        }
+                        if (cint < 0 || cint >= _options.Count)
+                        {
+                            throw new ResponseInputException("Input doesn't correspond to a proper option");
+                        }
+                        responses.Add(cint);
                     }
-                    else
-                    {
-                        throw new ResponseInputException($"Input out of expected range ({min}:{max})");
-                    }
+                    return responses.ToArray();
                 }
-                catch (ResponseInputException except)
+                catch(ResponseInputException except)
                 {
-                    Console.WriteLine($"Error parsing input: {except.Message}");
+                    Console.WriteLine(except);
                 }
             }
         }
 
-        private int _processNumericalResponse()
+        [System.Serializable]
+        public class ResponseInputException : System.Exception
         {
-            string response = Console.ReadLine() ?? "0";
-            int responseCode = 0;
-            if (!int.TryParse(response.Trim(), out responseCode))
-            {
-                throw new ResponseInputException("Could not parse value");
-            }
-            return responseCode;
+            public ResponseInputException() { }
+            public ResponseInputException(string message) : base(message) { }
+            public ResponseInputException(string message, System.Exception inner) : base(message, inner) { }
+            protected ResponseInputException(
+                System.Runtime.Serialization.SerializationInfo info,
+                System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
-    }
-
-    [System.Serializable]
-    public class ResponseInputException : System.Exception
-    {
-        public ResponseInputException() { }
-        public ResponseInputException(string message) : base(message) { }
-        public ResponseInputException(string message, System.Exception inner) : base(message, inner) { }
-        protected ResponseInputException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

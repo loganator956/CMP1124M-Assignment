@@ -37,7 +37,7 @@ namespace CMP1124M_Assignment
                 if (minRange >= maxRange)
                 {
                     // Could not find the item in the array, selected item is the closest
-                    throw new SearchNotFoundException($"Cannot find {searchCriteria} in the array. Closest is {sel} at {m}");
+                    throw new SearchNotFoundException($"Cannot find {searchCriteria} in the array. Closest is {sel} at index {m}.");
                 }
             }
             if (foundIndex != -1)

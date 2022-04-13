@@ -63,6 +63,21 @@ namespace CMP1124M_Assignment
             }
         }
 
+        public static int QuickShowMessageInt(string message)
+        {
+            Console.WriteLine(message);
+            int val = 0;
+            if (int.TryParse(Console.ReadLine() ?? "no", out val))
+            {
+                return val;
+            }
+            else
+            {
+                // parse unsuccess
+                return QuickShowMessageInt($"Try again: {message}");
+            }
+        }
+
         [System.Serializable]
         public class ResponseInputException : System.Exception
         {

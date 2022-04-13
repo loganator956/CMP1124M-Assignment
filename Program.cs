@@ -71,6 +71,33 @@ namespace CMP1124M_Assignment
             {
                 Console.WriteLine($"{i}\t{ascendingOrder[i]}\t{descendingOrder[i]}");
             }
+
+            // Search arrays
+            // TODO: Search the selected array for a user-defined value, if the value exists, then provide its location (if it appears more than once then provide **ALL** the locations) otherwise provide error message
+            MessagePrompt sortTypeSelection = new MessagePrompt("What type of sort would you like to use?");
+            sortTypeSelection.AddOption("Binary Search");
+            foreach (int sel in sortTypeSelection.ShowPromptMultiSelect())
+            {
+                int search = MessagePrompt.QuickShowMessageInt("What number do you want to search for?");
+                int[] result = new int[0];
+                switch (sel)
+                {
+                    case 0:
+                        try
+                        {
+                            result = Searcher.BinarySearch(ascendingOrder, search);
+                        }
+                        catch (Searcher.SearchNotFoundException except)
+                        {
+                            Console.WriteLine($"Couldn't find search: {except.Message}");
+                        }
+                        break;
+                }
+                foreach (int r in result)
+                {
+                    Console.WriteLine($"Found {ascendingOrder[r]} at index {r}");
+                }
+            }
         }
     }
 }

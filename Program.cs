@@ -50,7 +50,7 @@ namespace CMP1124M_Assignment
             {
                 Console.WriteLine($"\n-----------------\n\n2048 array index: {i}");
 
-                ProcessArray(shareValues2048[i]);
+                ProcessArray(shareValues2048[i], true);
 
                 index++;
             }
@@ -95,13 +95,13 @@ namespace CMP1124M_Assignment
             {
                 Console.WriteLine($"\n-----------------\n\n256 array index: {i}");
 
-                ProcessArray(shareValues256[i]);
+                ProcessArray(shareValues256[i], false);
 
                 index++;
             }
         }
 
-        static void ProcessArray(int[] array)
+        static void ProcessArray(int[] array, bool use2048)
         {
             // Sort/reverse arrays
             MessagePrompt sortTypeSelection = new MessagePrompt("What type of sort would you like to use?");
@@ -122,7 +122,7 @@ namespace CMP1124M_Assignment
             // display arrays
             Console.WriteLine("Displaying every 10th item in the row");
             Console.WriteLine("Index\tAsc.\tDesc.");
-            for (int i = 0; i < ascendingOrder.Length; i += 10)
+            for (int i = 0; i < ascendingOrder.Length; i += (use2048 ? 50 : 10))
             {
                 Console.WriteLine($"{i}\t{ascendingOrder[i]}\t{descendingOrder[i]}");
             }

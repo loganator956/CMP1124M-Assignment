@@ -61,7 +61,8 @@ namespace CMP1124M_Assignment
         {
             // Sort/reverse arrays
             // TODO: Prompt to select which sorting algorithm to use
-            int[] ascendingOrder = Sorter.BubbleSort(array);
+            // int[] ascendingOrder = Sorter.BubbleSort(array);
+            int[] ascendingOrder = Sorter.BeginMergeSort(array);
             int[] descendingOrder = Sorter.ReverseOrder(ascendingOrder);
 
             // display arrays
@@ -74,9 +75,9 @@ namespace CMP1124M_Assignment
 
             // Search arrays
             // TODO: Search the selected array for a user-defined value, if the value exists, then provide its location (if it appears more than once then provide **ALL** the locations) otherwise provide error message
-            MessagePrompt sortTypeSelection = new MessagePrompt("What type of sort would you like to use?");
-            sortTypeSelection.AddOption("Binary Search");
-            foreach (int sel in sortTypeSelection.ShowPromptMultiSelect())
+            MessagePrompt searchTypeSelection = new MessagePrompt("What type of sort would you like to use?");
+            searchTypeSelection.AddOption("Binary Search");
+            foreach (int sel in searchTypeSelection.ShowPromptMultiSelect())
             {
                 int search = MessagePrompt.QuickShowMessageInt("What number do you want to search for?");
                 int[] result = new int[0];

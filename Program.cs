@@ -37,8 +37,6 @@ namespace CMP1124M_Assignment
             }
 
             // select which arrays to sort, search and display
-            Console.WriteLine("What arrays do you want to sort & search");
-            Console.WriteLine("1 - Share_1_256.txt\n2 - Share_2_256.txt\n3 - Share_3_256.txt");
             MessagePrompt arraySelectionPrompt = new MessagePrompt("Select which array(s) you want to process");
             arraySelectionPrompt.AddOption("Share_1_256.txt");
             arraySelectionPrompt.AddOption("Share_2_256.txt");

@@ -26,7 +26,8 @@ namespace CMP1124M_Assignment
         public static int[] BeginMergeSort(int[] input)
         {
             int[] result = MergeSort(input.ToList()).ToArray();
-            return new int[] { };
+
+            return result;
         }
 
         private static List<int> MergeSort(List<int> unsorted)

@@ -8,6 +8,52 @@ namespace CMP1124M_Assignment
         public static void Main(string[] args)
         {
             Process256();
+            Process2048();
+        }
+
+        static void Process2048()
+        {
+            // Create and initialize jagged array storing the shares
+            int[][] shareValues2048 = new int[NumberOfShares][];
+            for (int i =0; i < shareValues2048.Length; i++)
+            {
+                // initializing the jagged array
+                shareValues2048[i] = new int[2048];
+            }
+
+            // read share files into array
+            for (int i = 0; i < NumberOfShares; i++)
+            {
+                string fileName = $"Share_{i + 1}_2048.txt";
+                if (!File.Exists(fileName))
+                {
+                    Console.WriteLine($"\nERROR: CANNOT FIND FILE: {fileName}\nExiting");
+                    return;
+                }
+                string[] lines = File.ReadAllLines(fileName);
+                for (int line = 0; line < lines.Length; line++)
+                {
+                    shareValues2048[i][line] = int.Parse(lines[line]);
+                }
+            }
+
+            // select which arrays to sort, search and display
+            MessagePrompt arraySelectionPrompt = new MessagePrompt("Select which array(s) you want to process");
+            arraySelectionPrompt.AddOption("Share_1_2048.txt");
+            arraySelectionPrompt.AddOption("Share_2_2048.txt");
+            arraySelectionPrompt.AddOption("Share_3_2048.txt");
+            // now have the responses (the indexes of which arrays to use)
+            int[] responses = arraySelectionPrompt.ShowPromptMultiSelect();
+            int[][] responseArrays = new int[responses.Length][];
+            int index = 0;
+            foreach (int i in responses)
+            {
+                Console.WriteLine($"\n-----------------\n\n2048 array index: {i}");
+
+                ProcessArray(shareValues2048[i]);
+
+                index++;
+            }
         }
 
         static void Process256()
@@ -47,7 +93,7 @@ namespace CMP1124M_Assignment
             int index = 0;
             foreach (int i in responses)
             {
-                Console.WriteLine($"\n---\n256 array index: {i}");
+                Console.WriteLine($"\n-----------------\n\n256 array index: {i}");
 
                 ProcessArray(shareValues256[i]);
 

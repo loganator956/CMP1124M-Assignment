@@ -6,6 +6,7 @@ namespace CMP1124M_Assignment
     {
         public static int[] BubbleSort(int[] input)
         {
+            _counter = 0;
             int[] currentOrder = input;
             for (int j = 0; j < input.Length - 1; j++)
             {
@@ -18,20 +19,26 @@ namespace CMP1124M_Assignment
                         currentOrder[i + 1] = currentOrder[i];
                         currentOrder[i] = t;
                     }
+                    _counter++;
                 }
             }
+            Console.WriteLine("Number of iterations = " + _counter);
             return currentOrder;
         }
 
+        private static int _counter = 0;
+
         public static int[] BeginMergeSort(int[] input)
         {
+            _counter = 0;
             int[] result = MergeSort(input.ToList()).ToArray();
-
+            Console.WriteLine("Number of iterations = " + _counter);
             return result;
         }
 
         private static List<int> MergeSort(List<int> unsorted)
         {
+            _counter++;
             if (unsorted.Count <= 1)
             {
                 // can not split the list any further so return.
@@ -63,6 +70,7 @@ namespace CMP1124M_Assignment
 
         private static List<int> Merge(List<int> left, List<int> right)
         {
+            _counter++;
             List<int> result = new List<int>();
 
             // while there are still elements left to be processed in left OR right arrays

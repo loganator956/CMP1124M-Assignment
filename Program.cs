@@ -60,9 +60,19 @@ namespace CMP1124M_Assignment
         static void ProcessArray(int[] array)
         {
             // Sort/reverse arrays
-            // TODO: Prompt to select which sorting algorithm to use
-            // int[] ascendingOrder = Sorter.BubbleSort(array);
-            int[] ascendingOrder = Sorter.BeginMergeSort(array);
+            MessagePrompt sortTypeSelection = new MessagePrompt("What type of sort would you like to use?");
+            sortTypeSelection.AddOption("Bubble Sort");
+            sortTypeSelection.AddOption("Merge Sort");
+            int[] ascendingOrder = new int[] { };
+            switch (sortTypeSelection.ShowPromptMultiSelect()[0])
+            {
+                case 0:
+                    ascendingOrder = Sorter.BubbleSort(array);
+                    break;
+                case 1:
+                    ascendingOrder = Sorter.BeginMergeSort(array);
+                    break;
+            }
             int[] descendingOrder = Sorter.ReverseOrder(ascendingOrder);
 
             // display arrays
@@ -74,8 +84,7 @@ namespace CMP1124M_Assignment
             }
 
             // Search arrays
-            // TODO: Search the selected array for a user-defined value, if the value exists, then provide its location (if it appears more than once then provide **ALL** the locations) otherwise provide error message
-            MessagePrompt searchTypeSelection = new MessagePrompt("What type of sort would you like to use?");
+            MessagePrompt searchTypeSelection = new MessagePrompt("What type of search would you like to use?");
             searchTypeSelection.AddOption("Binary Search");
             foreach (int sel in searchTypeSelection.ShowPromptMultiSelect())
             {

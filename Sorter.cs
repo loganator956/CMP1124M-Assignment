@@ -68,7 +68,7 @@ namespace CMP1124M_Assignment
             // while there are still elements left to be processed in left OR right arrays
             while (left.Count > 0 || right.Count > 0)
             {
-                // if there are still comparisons to be made
+                // if there are still comparisons to be made in left AND right arrays
                 if (left.Count > 0 && right.Count > 0)
                 {
                     // compare the first values of the lists

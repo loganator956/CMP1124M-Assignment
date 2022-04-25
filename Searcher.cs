@@ -12,6 +12,7 @@ namespace CMP1124M_Assignment
             int maxRange = sortedArray.Length - 1;
             int m = (minRange + maxRange) / 2;
             int foundIndex = -1;
+            int iterations = 0;
             while (true)
             {
                 m = (minRange + maxRange) / 2;
@@ -39,6 +40,7 @@ namespace CMP1124M_Assignment
                     // Could not find the item in the array, selected item is the closest
                     throw new SearchNotFoundException($"Cannot find {searchCriteria} in the array. Closest is {sel} at index {m}.");
                 }
+                iterations++;
             }
             if (foundIndex != -1)
             {
@@ -70,6 +72,7 @@ namespace CMP1124M_Assignment
                     if (found == false) { break; } else { indexOffset++; };
                 }
             }
+            Console.WriteLine($"Used {iterations} iterations");
             return foundIndexes.ToArray();
         }
 
